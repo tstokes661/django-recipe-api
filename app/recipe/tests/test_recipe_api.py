@@ -17,9 +17,11 @@ from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
 
 RECIPE_URL = reverse('recipe:recipe-list')
 
+
 def image_upload_url(recipe_id):
     """return url for image upload"""
     return reverse('recipe:recipe-upload-image', args=[recipe_id])
+
 
 def detail_url(recipe_id):
     """return details url"""
@@ -218,7 +220,7 @@ class RecipeImageUploadTests(TestCase):
         """test uploading image to recipe"""
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as ntf:
-            img = Image.new('RGB', (10,10))
+            img = Image.new('RGB', (10, 10))
             img.save(ntf, format='JPEG')
             ntf.seek(0)
             res = self.client.post(url, {'image': ntf}, format='multipart')
